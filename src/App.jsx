@@ -4,10 +4,30 @@ import "./App.css";
 const API_BASE = "https://fogo-de-chao-backend.onrender.com";
 
 const PLATFORMS = [
-  { key: "tripadvisor", label: "TripAdvisor", placeholder: "https://www.tripadvisor.in/Restaurant_Review-..." },
-  { key: "yelp", label: "Yelp", placeholder: "https://www.yelp.com/biz/..." },
-  { key: "google_maps", label: "Google Maps", placeholder: "https://www.google.com/maps/place/..." },
-  { key: "open_table", label: "OpenTable", placeholder: "https://www.opentable.com/r/..." },
+  {
+    key: "tripadvisor",
+    label: "TripAdvisor",
+    placeholder: "https://www.tripadvisor.in/Restaurant_Review-g304558-d123456-...",
+    hint: "Open the restaurant's own page on TripAdvisor, then copy the URL — it must contain 'Restaurant_Review'.",
+  },
+  {
+    key: "yelp",
+    label: "Yelp",
+    placeholder: "https://www.yelp.com/biz/restaurant-name",
+    hint: "Open the restaurant's own page on Yelp, then copy the URL — it must contain '/biz/'.",
+  },
+  {
+    key: "google_maps",
+    label: "Google Maps",
+    placeholder: "https://www.google.com/maps/place/Restaurant+Name/@lat,lng,17z/...",
+    hint: "Click the restaurant on Google Maps until its reviews panel opens, then copy the URL — it must contain '/place/'. A coordinate viewport or search results URL will not work.",
+  },
+  {
+    key: "open_table",
+    label: "OpenTable",
+    placeholder: "https://www.opentable.com/r/restaurant-name",
+    hint: "Open the restaurant's own page on OpenTable (not search results), then copy the URL — it must contain '/r/'.",
+  },
 ];
 
 const MIN_DATE = "2021-01-01";
@@ -229,6 +249,9 @@ export default function App() {
                   disabled={!enabled[p.key]}
                   onChange={(e) => updateUrl(p.key, e.target.value)}
                 />
+                {enabled[p.key] && (
+                  <span className="hint">{p.hint}</span>
+                )}
               </div>
             </div>
           ))}
@@ -265,11 +288,6 @@ export default function App() {
           ))}
         </section>
       )}
-{/* 
-      <footer className="foot-note">
-        Running against your own Apify token. Nothing leaves this machine
-        except the requests Apify needs to run the scrapers.
-      </footer> */}
     </div>
   );
 }
